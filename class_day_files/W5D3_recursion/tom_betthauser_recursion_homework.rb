@@ -66,21 +66,25 @@ def ice_cream_shop(flavors, favorite)
   ice_cream_shop(flavors[1..-1], favorite)
 end
 
+# ~2min
+
 #   # Test Cases
-  p ice_cream_shop(['vanilla', 'strawberry'], 'blue moon')  # => returns false
-  p ice_cream_shop(['pistachio', 'green tea', 'chocolate', 'mint chip'], 'green tea')  # => returns true
-  p ice_cream_shop(['cookies n cream', 'blue moon', 'superman', 'honey lavender', 'sea salt caramel'], 'pistachio')  # => returns false
-  p ice_cream_shop(['moose tracks'], 'moose tracks')  # => returns true
-  p ice_cream_shop([], 'honey lavender')  # => returns false
+  # p ice_cream_shop(['vanilla', 'strawberry'], 'blue moon')  # => returns false
+  # p ice_cream_shop(['pistachio', 'green tea', 'chocolate', 'mint chip'], 'green tea')  # => returns true
+  # p ice_cream_shop(['cookies n cream', 'blue moon', 'superman', 'honey lavender', 'sea salt caramel'], 'pistachio')  # => returns false
+  # p ice_cream_shop(['moose tracks'], 'moose tracks')  # => returns true
+  # p ice_cream_shop([], 'honey lavender')  # => returns false
 
 # Exercise 5 - Reverse
+
+def reverse(str)
 
 # Write a function reverse(string) that takes in a string and returns it reversed.
 
 #   # Test Cases
-#   reverse("house") # => "esuoh"
-#   reverse("dog") # => "god"
-#   reverse("atom") # => "mota"
-#   reverse("q") # => "q"
-#   reverse("id") # => "di"
-#   reverse("") # => ""
+  p reverse("house") # => "esuoh"
+  p reverse("dog") # => "god"
+  p reverse("atom") # => "mota"
+  p reverse("q") # => "q"
+  p reverse("id") # => "di"
+  p reverse("") # => ""
