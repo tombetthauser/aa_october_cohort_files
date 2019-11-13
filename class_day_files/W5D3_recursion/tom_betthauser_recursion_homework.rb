@@ -78,6 +78,10 @@ end
 # Exercise 5 - Reverse
 
 def reverse(str)
+  str.length <= 1 ? str : str[-1] + reverse(str[0...-1]) 
+end
+
+# ~2min
 
 # Write a function reverse(string) that takes in a string and returns it reversed.
 
