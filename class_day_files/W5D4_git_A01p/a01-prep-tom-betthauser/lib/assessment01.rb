@@ -95,8 +95,7 @@ class Array
     return self if self.length < 2
 
     mid_idx = self.length / 2
-    left = self.take(mid_idx)
-    right = self.drop(mid_idx)
+    left, right = self.take(mid_idx), self.drop(mid_idx)
 
     sorted_left = left.merge_sort(&prc)
     sorted_right = right.merge_sort(&prc)
@@ -119,6 +118,8 @@ class Array
     sorted + left + right
   end
 end
+
+# ~6min -- 0 errors on first run -- coded with verbal explaination -- after hour-long break!!!
 
 
 
@@ -290,43 +291,43 @@ end
 
 ## ___________________________________________
 
-class Array
+# class Array
 
-  def merge_sort(&prc)
-    prc ||= Proc.new { |num_1, num_2| num_1 <=> num_2 }
-    return self if self.count < 2
-    middle = self.count / 2
-    left, right = self.take(middle), self.drop(middle)
-    sorted_left, sorted_right = left.merge_sort(&prc), right.merge_sort(&prc)
-    Array.merge(sorted_left, sorted_right, &prc)
+#   def merge_sort(&prc)
+#     prc ||= Proc.new { |num_1, num_2| num_1 <=> num_2 }
+#     return self if self.count < 2
+#     middle = self.count / 2
+#     left, right = self.take(middle), self.drop(middle)
+#     sorted_left, sorted_right = left.merge_sort(&prc), right.merge_sort(&prc)
+#     Array.merge(sorted_left, sorted_right, &prc)
 
-  end
+#   end
 
-  def merge_sort(&prc)
-    prc ||= Proc.new { |num_1, num_2| num_1 <=> num_2 }
-    return self if self.length == 1
+#   def merge_sort(&prc)
+#     prc ||= Proc.new { |num_1, num_2| num_1 <=> num_2 }
+#     return self if self.length == 1
 
-    mid_idx = self.length / 2
-    left, right = self.take(mid_idx)
+#     mid_idx = self.length / 2
+#     left, right = self.take(mid_idx)
 
-  end
-
-
+#   end
 
 
 
-  private
-  def self.merge(left, right, &proc)
-    sorted = []
-    until left.empty? || right.empty?
-      if proc.call(left.first, right.first) == -1
-        sorted << left.shift
-      else
-        sorted << right.shift
-      end
-    end
-    sorted + left + right 
-  end
-end
+
+
+#   private
+#   def self.merge(left, right, &proc)
+#     sorted = []
+#     until left.empty? || right.empty?
+#       if proc.call(left.first, right.first) == -1
+#         sorted << left.shift
+#       else
+#         sorted << right.shift
+#       end
+#     end
+#     sorted + left + right 
+#   end
+# end
 
 # p [5,4,3,2].merge_sort { |num_1, num_2| num_2 <=> num_1 }
