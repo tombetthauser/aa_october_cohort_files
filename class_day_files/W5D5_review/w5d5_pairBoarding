@@ -1,0 +1,85 @@
+"cats are cool".shuffled_sentence_detector("dogs are cool") => false
+"cool cats are".shuffled_sentence_detector("cats are cool") => true 
+
+class String
+
+  def shuffled_sentence_detector(arg_sentence)
+    words_1 = self.split(" ")
+    words_2 = arg_sentence.split(" ")
+
+    words_2.all? do |word|
+      words_1.include?(word)
+    end
+  end
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Array
+
+  def merge_sort(&prc)
+    prc ||= Proc.new { |x,y| x <=> y }
+
+    return self if self.length < 2
+
+    mid_idx = self.length / 2
+    left = self[0...mid_idx]
+    right = self[mid_idx..-1]
+
+    sorted_left = left.merge_sort(&prc)
+    sorted_right = right.merge_sort(&prc)
+
+    Array.merge(sorted_left, sorted_right, &prc)
+  end
+
+  private
+
+  def self.merge(left, right, &prc)
+    sorted = []
+
+    until left.empty? || right.empty?
+      if prc.call(left.first, right.first) == -1 
+        sorted << left.shift
+      else
+        sorted << right.shift
+      end
+    end
+
+    sorted + left + right
+  end
+
+end
