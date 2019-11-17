@@ -99,36 +99,35 @@ class Map
   def set(key, val)
     # set new
     # or update existing
-    if @map.any? { |pair| pair.first == key }
-      @map.each_with_index do |pair, map_idx|
-        if pair.first == key
-          @map[map_idx][0] = val
-        end
+    @map.each_with_index do |pair, map_idx|
+      if pair.first == key
+        @map[map_idx][0] = val
+        return true
       end
-    else
-      @map << [key, val]
     end
+    @map << [key, val]; true
   end
 
   def get(key)
-    if @map.any? { |pair| pair.first == key }
-      @map.each_with_index do |pair, map_idx|
-        if pair.first == key
-          return pair.last
-        end
+    @map.each_with_index do |pair, map_idx|
+      if pair.first == key
+        return pair.last
       end
-    else
-      nil
     end
+    nil
   end
 
   def delete(key)
+    @map.each_with_index do |pair, map_idx|
+      if pair.first == key
+        @map = @map[0...map_idx] + @map[map_idx + 1...@map.length]
+        return true
+      end
+    end
+    false
   end
 
   def show
+    @map
   end
-
-  def 
-
-
 end
