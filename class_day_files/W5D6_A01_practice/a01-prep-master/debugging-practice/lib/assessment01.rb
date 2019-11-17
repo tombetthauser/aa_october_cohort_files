@@ -73,7 +73,7 @@ def factorials_rec(num)
   end
 end
 
-
+# ~4min
 
 
 
@@ -99,20 +99,33 @@ class Array
   end
 end
 
-# class String
-#   def symmetric_substrings
-#     symm_subs = []
+# ~2min
 
-#     length.times do |start_pos|
-#       (1..(length - start_pos)).each do |len|
-#         substr = self[start_pos..(start_pos + len)]
-#         symm_subs << substr if substr == substr.reverse
-#       end
-#     end
 
-#     symm_subs
-#   end
-# end
+
+
+
+
+
+
+
+
+class String
+  def symmetric_substrings
+    symm_subs = []
+
+    length.times do |start_pos|
+      (2..(length - start_pos)).each do |len|
+        substr = self[start_pos..(start_pos + len)]
+        symm_subs << substr if substr == substr.reverse && !symm_subs.include?(substr)
+      end
+    end
+
+    symm_subs
+  end
+end
+
+# ~3min (kind of cheated with .include? on 120?)
 
 # class Array
 #   def merge_sort(&prc)
