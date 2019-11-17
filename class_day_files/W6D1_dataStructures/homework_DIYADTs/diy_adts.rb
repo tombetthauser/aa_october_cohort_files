@@ -87,3 +87,48 @@ end
 # up to you to check whether a key currently exists!
 
 # As always, test your code thoroughly to make sure all properties of maps are enforced.
+
+
+
+class Map
+
+  def initialize
+    @map = []
+  end
+
+  def set(key, val)
+    # set new
+    # or update existing
+    if @map.any? { |pair| pair.first == key }
+      @map.each_with_index do |pair, map_idx|
+        if pair.first == key
+          @map[map_idx][0] = val
+        end
+      end
+    else
+      @map << [key, val]
+    end
+  end
+
+  def get(key)
+    if @map.any? { |pair| pair.first == key }
+      @map.each_with_index do |pair, map_idx|
+        if pair.first == key
+          return pair.last
+        end
+      end
+    else
+      nil
+    end
+  end
+
+  def delete(key)
+  end
+
+  def show
+  end
+
+  def 
+
+
+end
