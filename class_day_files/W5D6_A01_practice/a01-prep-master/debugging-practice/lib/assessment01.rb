@@ -1,20 +1,25 @@
-# class Array
-#   def my_inject(accumulator = nil, &block)
-#     i = 0
+class Array
+  def my_inject(accumulator = nil, &block)
+    i = 0
 
-#     if accumulator
-#       accumulator = self.first
-#       i += 1
-#     end
+    if accumulator.nil?
+      accumulator = self.first
+      i += 1
+    end
 
-#     while i < length
-#       accumulator = block.call(accumulator, i)
-#       i += 1
-#     end
+    while i < length
+      accumulator = block.call(accumulator, self[i])
+      i += 1
+    end
 
-#     acumulator
-#   end
-# end
+    accumulator
+  end
+end
+
+# ~5min
+
+
+
 
 # def is_prime?(num)
 #   (2...num).none? { |factor| num / factor == 0 }
