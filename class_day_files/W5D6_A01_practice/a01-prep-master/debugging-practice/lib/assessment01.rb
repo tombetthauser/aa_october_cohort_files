@@ -127,39 +127,52 @@ end
 
 # ~3min (kind of cheated with .include? on 120?)
 
-# class Array
-#   def merge_sort(&prc)
-#     # See how I create a Proc if no block was given; this eliminates
-#     # having to later have two branches of logic, one for a block and
-#     # one for no block.
-#     prc ||= Proc.new { |x, y| x <=> y }
 
-#     return self if count <= 1
 
-#     Array.merge(
-#       self.take(count / 2).merge_sort(&prc),
-#       self.drop(count / 2).merge_sort(&prc)
-#     )
-#   end
 
-#   private
-#   def self.merge(left, right, &prc)
-#     merged = []
 
-#     until left.empty? || right.empty?
-#       case prc.call(left, right)
-#       when 1
-#         merged << left.shift
-#       when 0
-#         merged << left.shift
-#       when -1
-#         merged << right.shift
-#       end
-#     end
 
-#     merged.concat(left)
-#     merged.concat(right)
 
-#     merged
-#   end
-# end
+
+
+class Array
+  def merge_sort(&prc)
+    # See how I create a Proc if no block was given; this eliminates
+    # having to later have two branches of logic, one for a block and
+    # one for no block.
+    prc ||= Proc.new { |x, y| x <=> y }
+
+    return self if count <= 1
+
+    Array.merge(
+      self.take(count / 2).merge_sort(&prc),
+      self.drop(count / 2).merge_sort(&prc),
+      &prc
+    )
+  end
+
+  private
+  def self.merge(left, right, &prc)
+    merged = []
+
+    until left.empty? || right.empty?
+      case prc.call(left, right)
+      when -1
+        merged << left.shift
+      when 0
+        merged << left.shift
+      when 1
+        merged << right.shift
+      end
+    end
+
+    merged.concat(left)
+    merged.concat(right)
+
+    merged
+  end
+end
+
+# ~3min
+
+# 45 min total with break / texting
