@@ -21,22 +21,28 @@ end
 
 
 
-# def is_prime?(num)
-#   (2...num).none? { |factor| num / factor == 0 }
-# end
+def is_prime?(num)
+  return false if num < 2
+  (2...num).none? { |factor| num % factor == 0 }
+end
 
-# def primes(count)
-#   primes = []
+def primes(input_count)
+  primes = []
 
-#   i = 1
-#   until primes.count > count
-#     primes << i if is_prime(i)
+  i = 1
+  until primes.count >= input_count
+    if is_prime?(i)
+      primes << i 
+    end
 
-#     i += 1
-#   end
+    i += 1
+  end
 
-#   primes
-# end
+  primes
+end
+
+# ~7min (got stuck on / instead of %)
+
 
 # # The "calls itself recursively" spec may say that there is no method
 # # named "and_call_original" if you are using an older version of
