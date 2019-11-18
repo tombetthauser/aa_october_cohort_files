@@ -1,19 +1,20 @@
 class Array
-  def my_inject(accumulator = nil, &block)
-    i = 0
 
-    if accumulator.nil?
-      accumulator = self.first
-      i += 1
+  def my_inject(acc = nil, &prc)
+    if acc.nil?
+      acc = self.first
+      (1...self.length).each do |idx|
+        acc = prc.call(acc, self[idx])
+      end
+      acc
+    else
+      (0...self.length).each do |idx|
+        acc = prc.call(acc, self[idx])
+      end
+      acc
     end
-
-    while i < length
-      accumulator = block.call(accumulator, self[i])
-      i += 1
-    end
-
-    accumulator
   end
+
 end
 
 # ~5min
@@ -21,23 +22,19 @@ end
 
 
 
-def is_prime?(num)
+def prime?(num)
   return false if num < 2
-  (2...num).none? { |factor| num % factor == 0 }
+  (2...num).none? { |fact| num % fact == 0 }
 end
+
 
 def primes(input_count)
   primes = []
-
-  i = 1
-  until primes.count >= input_count
-    if is_prime?(i)
-      primes << i 
-    end
-
+  i = 2
+  until primes.length >= input_count
+    primes << i if prime?(i)
     i += 1
   end
-
   primes
 end
 
@@ -62,15 +59,9 @@ end
 
 
 def factorials_rec(num)
-  if num == 1
-    [1]
-  elsif num == 2
-    [1,1]
-  else
-    facs = factorials_rec(num-1)
-    facs << facs.last * (num - 1)
-    facs
-  end
+  return [1,1,2].take(num) if num < 3
+  facts = factorials_rec(num-1)
+  facts + [ facts.last * (num-1) ]
 end
 
 # ~4min
@@ -88,15 +79,15 @@ end
 
 
 class Array
+
   def dups
-    positions = Hash.new { |h, k| h[k] = [] }
-
-    each_with_index do |item, index|
-      positions[item] << index
+    hash = Hash.new { |h,k| h[k] = [] }
+    (0...self.length).each do |idx|
+      hash[self[idx]] << idx
     end
-
-    positions.select { |key, val| val.count > 1 }
+    hash.select { |k,v| v.length > 1 }
   end
+
 end
 
 # ~2min
@@ -111,18 +102,20 @@ end
 
 
 class String
-  def symmetric_substrings
-    symm_subs = []
 
-    length.times do |start_pos|
-      (2..(length - start_pos)).each do |len|
-        substr = self[start_pos..(start_pos + len)]
-        symm_subs << substr if substr == substr.reverse && !symm_subs.include?(substr)
+  def symmetric_substrings
+    subs = []
+
+    (0...self.length).each do |idx1|
+      (idx1+1...self.length).each do |idx2|
+        sub = self[idx1..idx2]
+        subs << sub if sub == sub.reverse
       end
     end
 
-    symm_subs
+    subs
   end
+
 end
 
 # ~3min (kind of cheated with .include? on 120?)
@@ -140,39 +133,42 @@ class Array
     # See how I create a Proc if no block was given; this eliminates
     # having to later have two branches of logic, one for a block and
     # one for no block.
-    prc ||= Proc.new { |x, y| x <=> y }
 
-    return self if count <= 1
+    prc ||= Proc.new { |a,b| a <=> b }
 
-    Array.merge(
-      self.take(count / 2).merge_sort(&prc),
-      self.drop(count / 2).merge_sort(&prc),
-      &prc
-    )
+    return self if self.length < 2
+
+    mid = self.length / 2
+    left = self[0...mid]
+    right = self[mid..-1]
+
+    sorted_left = left.merge_sort(&prc)
+    sorted_right = right.merge_sort(&prc)
+
+    Array.merge(sorted_left, sorted_right, &prc)
   end
 
   private
   def self.merge(left, right, &prc)
-    merged = []
+    sorted = []
 
     until left.empty? || right.empty?
-      case prc.call(left, right)
-      when -1
-        merged << left.shift
-      when 0
-        merged << left.shift
-      when 1
-        merged << right.shift
+      if prc.call(left.first, right.first) == -1
+        sorted << left.shift
+      else
+        sorted << right.shift
       end
     end
 
-    merged.concat(left)
-    merged.concat(right)
-
-    merged
+    sorted + left + right
   end
 end
 
 # ~3min
 
 # 45 min total with break / texting
+
+
+
+
+# ~24min rusty
