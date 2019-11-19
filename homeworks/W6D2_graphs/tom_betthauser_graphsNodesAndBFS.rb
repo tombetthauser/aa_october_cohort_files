@@ -6,6 +6,8 @@
 
 class GraphNode
 
+  attr_reader :value, :neighbors
+
   def initialize(value)
     @value = value
     @neighbors = []
@@ -15,8 +17,8 @@ class GraphNode
     @neighbors << neighbor
   end
 
-  def neighbors=(*neighbors)
-    neighbors.each { |neighbor| @neighbors << neighbor }
+  def neighbors=(*new_neighbors)
+    new_neighbors.each { |neighbor| @neighbors << neighbor }
   end
 end
 
