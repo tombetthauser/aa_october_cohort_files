@@ -11,6 +11,10 @@ class GraphNodes
     @neighbors = []
   end
 
+  def add_neighbor(neighbor)
+    @neighbors << neighbor
+  end
+
 end
 
 # class GraphNode
