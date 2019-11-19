@@ -4,7 +4,7 @@
 # its value and the nodes to which it connects us - in the case of a bidirectional 
 # graph, this will be all its neighbors. For any given node, we should be able to add a neighboring node.
 
-class GraphNodes
+class GraphNode
 
   def initialize(value)
     @value = value
@@ -15,6 +15,9 @@ class GraphNodes
     @neighbors << neighbor
   end
 
+  def neighbors=(*neighbors)
+    neighbors.each { |neighbor| @neighbors << neighbor }
+  end
 end
 
 # class GraphNode
@@ -27,16 +30,16 @@ end
 
 # You can now build it using your new GraphNode class.
 
-# a = GraphNode.new('a')
-# b = GraphNode.new('b')
-# c = GraphNode.new('c')
-# d = GraphNode.new('d')
-# e = GraphNode.new('e')
-# f = GraphNode.new('f')
-# a.neighbors = [b, c, e]
-# c.neighbors = [b, d]
-# e.neighbors = [a]
-# f.neighbors = [e]
+a = GraphNode.new('a')
+b = GraphNode.new('b')
+c = GraphNode.new('c')
+d = GraphNode.new('d')
+e = GraphNode.new('e')
+f = GraphNode.new('f')
+a.neighbors = [b, c, e]
+c.neighbors = [b, d]
+e.neighbors = [a]
+f.neighbors = [e]
 
 # Let's write a breadth-first search, making sure to keep track not just of the queue, but of all the nodes we've visited so far. If you find the target_value return the node with that value, and if no node is found return nil.
 
