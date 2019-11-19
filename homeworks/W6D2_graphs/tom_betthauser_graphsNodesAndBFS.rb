@@ -45,9 +45,17 @@ f.neighbors = [e]
 
 # Let's write a breadth-first search, making sure to keep track not just of the queue, but of all the nodes we've visited so far. If you find the target_value return the node with that value, and if no node is found return nil.
 
-# def bfs(starting_node, target_value)
 
-# end
+# not yet complete (!)
+def bfs(starting_node, target_value)
+  return starting_node if starting_node.value == target_value
+  queue = [starting_node]
+  until queue.empty?
+    queue += starting_node.neighbors
+    queue.each { |neighbor| bfs(neighbor, target_value) }
+  end
+  nil
+end
 
 # Now that we have a node class that can search in any direction, we have to be careful about the way we search graphs. Before, in a unidirectional tree, we could safely remove a node from our consideration once we had checked its value - there was no way a parent node could be linked back to itself by a child node. Now, though, anything goes - our graph could link back on itself and catch us in a loop if we're not careful!
 
