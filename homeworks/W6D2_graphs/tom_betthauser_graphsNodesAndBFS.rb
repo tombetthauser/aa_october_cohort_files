@@ -1,6 +1,17 @@
 # GraphNodes and BFS
 
-# First, construct a GraphNode class. Creating a node should give us access to its value and the nodes to which it connects us - in the case of a bidirectional graph, this will be all its neighbors. For any given node, we should be able to add a neighboring node.
+# First, construct a GraphNode class. Creating a node should give us access to 
+# its value and the nodes to which it connects us - in the case of a bidirectional 
+# graph, this will be all its neighbors. For any given node, we should be able to add a neighboring node.
+
+class GraphNodes
+
+  def initialize(value)
+    @value = value
+    @neighbors = []
+  end
+
+end
 
 # class GraphNode
 
