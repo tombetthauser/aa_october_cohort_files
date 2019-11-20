@@ -8,16 +8,32 @@ class TicTacToeNode
     @board = board
     @next_mover_mark = next_mover_mark
     @prev_move_pos = prev_move_pos
-    # not understanding what inst variables
-    # are these acting like parent / value / children?
-    # are we storing our poly-tree in a single root node?
   end
 
   def losing_node?(evaluator)
-    
+    if @board.over?
+      winner = @board.winner
+      return @board.won? && winner != evaluator
+    end
+
+    if evaluator != @next_mover_mark
+      children.any? { |child| child.losing_node?(evaluator) }
+    else
+      children.all? { |child| child.losing_node?(evaluator) }
+    end
   end
 
   def winning_node?(evaluator)
+    if @board.over?
+      winner = @board.winner
+      return @board.won? && winner == evaluator
+    end
+
+    if evaluator == @next_mover_mark
+      children.any? { |child| child.winning_node?(evaluator) }
+    else 
+      children.all? { |child| child.winning_node?(evaluator) }
+    end
   end
 
   def children 
@@ -25,13 +41,13 @@ class TicTacToeNode
 
     (0..2).each do |row_idx|
       (0..2).each do |col_idx|
-        if @board.rows[row_idx][col_idx] == nil
-          board_dup = @board.rows.map { |row| row.dup }
-          board_dup[row_idx][col_idx] = @next_mover_mark
+        position = [row_idx, col_idx]
+        if @board.empty?(position)
+          board_dup = @board.dup
+          board_dup[position] = @next_mover_mark
           next_mover_mark2 = @next_mover_mark == :x ? :o : :x
-          prev_move_pos2 = [row_idx, col_idx]
 
-          children_nodes << TicTacToeNode.new(board_dup, next_mover_mark2, prev_move_pos2)
+          children_nodes << TicTacToeNode.new(board_dup, next_mover_mark2, position)
         end
       end
     end
