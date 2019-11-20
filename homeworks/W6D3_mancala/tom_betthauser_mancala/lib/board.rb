@@ -5,6 +5,7 @@ class Board
     @player1 = name1
     @player2 = name2
     @cups = Array.new(14) { Array.new(4, :stone) }
+    # @cups[6], @cups[13] = [], []
     @cups[0], @cups[6], @cups[13] = [], [], []
   end
 
