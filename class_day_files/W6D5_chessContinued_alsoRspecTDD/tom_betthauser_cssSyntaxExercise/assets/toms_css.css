@@ -9,3 +9,7 @@ h1 {
 h2 {
   font-size: 32px;
 }
+
+.ingredients-list {
+  list-style: square;
+}
