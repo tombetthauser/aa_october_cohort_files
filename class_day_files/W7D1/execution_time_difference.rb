@@ -58,7 +58,8 @@ def largest_contiguous_subsum(list)
   largest_sum = list.first
   cur_max = list.first
   list = list.drop(1)
- list.each do |num|
+ 
+  list.each do |num|
   cur_max = 0 if cur_max < 0
   cur_max += num
   
@@ -71,7 +72,7 @@ end
 
 list = [2, 3, -6, 7, -6, 7]
 # cur = 2  5  0  7  1  8
-# lar = 2  5  5   7  7  8
+# lar = 2  5  5  7  7  8
   p  largest_contiguous_subsum(list) # => 8 (from [7, -6, 7])
 
 list = [5, 3, -7]
