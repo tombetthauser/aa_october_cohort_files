@@ -9,5 +9,20 @@ def my_min(list)
   min
 end
 
+# list = [ 0, 3, 5, 4, -5, 10, 1, 90 ]
+#  p  my_min(list)  # =>  -5
+#Quadratic Time and space complexity
+
+
+
+def my_min(list)
+  min = list.first
+  list.each do |num|
+    min = num if num < min
+  end
+  min
+end
+
+
 list = [ 0, 3, 5, 4, -5, 10, 1, 90 ]
  p  my_min(list)  # =>  -5
