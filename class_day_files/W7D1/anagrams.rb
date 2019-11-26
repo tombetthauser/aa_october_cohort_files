@@ -1,44 +1,19 @@
-# def first_anagram?(str1, str2)
-#     possible_anagrams(str1).include?(str2)
-# end
-
-# def possible_anagrams(string)
-#     anagrams = []
-#     final_length = (1..string.length).inject(:*)
-#     # count = 0
-
-#     until anagrams.length >= final_length
-#     #   count += 1
-#       new_anagram = string.split("").shuffle.join("")
-#       anagrams << new_anagram unless anagrams.include?(new_anagram)
-#     end
-#     # p count
-#     anagrams
-    
+def first_anagram?(str1, str2)
+    possible_anagrams(str1).include?(str2)
+end
 
 
-# #  return [string] if string.length <=1 
-# #   current_anagram = possible_anagrams(string[0...-1])
-# #   anagrams = []
-# #   current_anagram.each do |ele|
-   
-# #     (0..ele.length).each do |idx1|
-        
-# #       anagrams << string[idx1]
-# #     end
-# #   end
-# #   p anagrams
+def possible_anagrams(string)
+    anagrams = []
+    final_length = (1..string.length).inject(:*)
 
-# end
+    until anagrams.length >= final_length
+      new_anagram = string.split("").shuffle.join("")
+      anagrams << new_anagram unless anagrams.include?(new_anagram)
+    end
 
-# p first_anagram?( "cameralistic", "acclimatiser")
-# p first_anagram?("gizmo", "sally")    #=> false
-# p possible_anagrams("cat")
-
-
-# Exponential? or O(n!)
-
-
+    anagrams
+end
 
 
 def anagram?(str1, str2)
@@ -50,8 +25,7 @@ def anagram?(str1, str2)
       str2 = str2[0...temp_idx] + str2[temp_idx + 1..-1]
     end 
     
-    str1 = str1[1..-1]
-    
+    str1 = str1[1..-1]  
   end
   true
 end
@@ -110,6 +84,8 @@ end
 
 p anagrams?("gizmo", "sally")    #=> false
 p anagrams?( "cameralistic", "acclimatiser")
+
+#linear time
 
 
 
