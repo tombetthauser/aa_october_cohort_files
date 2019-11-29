@@ -124,20 +124,25 @@ def sparse_continents
   # Find every country that belongs to a continent where each country's
   # population is less than 25,000,000. Show name, continent and
   # population.
+
+  # show the the maximum population for each country
   # Hint: Sometimes rewording the problem can help you see the solution.
   execute(<<-SQL)
   SELECT
-    name, continent, population
+    c1.name, c1.continent, c1.population
   FROM
-    countries
+    countries c1
   WHERE
-    continent IN (
+    c1.continent NOT IN (
       SELECT
-        continent
+        c2.continent
       FROM
-        countries
+        countries c2
       WHERE
-        population < 25000000
+        c2.population > 25000000
+      ORDER BY
+        c2.continent
     )
+  ORDER BY c1.population DESC
   SQL
 end
