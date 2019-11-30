@@ -31,6 +31,12 @@ def all_teachers_join
   # Use a type of JOIN that will list all teachers and their department,
   # even if the department in NULL/nil.
   execute(<<-SQL)
+  SELECT
+    teachers.name, depts.name
+  FROM
+    teachers
+  LEFT OUTER JOIN
+    depts ON depts.id = teachers.dept_id
   SQL
 end
 
