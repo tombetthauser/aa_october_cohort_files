@@ -189,7 +189,7 @@ def films_by_cast_size
     GROUP BY
       movies.id
     ORDER BY
-      COUNT(*) DESC, movies.title ASC;
+      COUNT(*) DESC, movies.title ASC
   SQL
 end
 
@@ -214,3 +214,5 @@ def colleagues_of_garfunkel
     ORDER BY actors.name;
   SQL
 end
+
+# over 2hrs.. head burnt out, need more practice
