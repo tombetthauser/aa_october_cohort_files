@@ -112,6 +112,25 @@ def cl_to_lr
   # Craiglockhart, without changing routes. Change the query so that it
   # shows the services from Craiglockhart to London Road.
   execute(<<-SQL)
+  SELECT
+    r1.company,
+    r1.num,
+    r1.stop_id,
+    r2.stop_id
+  FROM
+    routes r1
+  JOIN
+    routes r2 ON (r1.company = r2.company AND r1.num = r2.num)
+  WHERE
+    r1.stop_id = 53
+    AND r2.stop_id IN (
+      SELECT
+        id
+      FROM
+        stops
+      WHERE
+        name = 'London Road'
+    )
   SQL
 end
 
@@ -139,6 +158,22 @@ def cl_to_lr_by_name
   # number. Change the query so that the services between 'Craiglockhart' and
   # 'London Road' are shown.
   execute(<<-SQL)
+  SELECT
+    r1.company,
+    r1.num,
+    s1.name,
+    s2.name
+  FROM
+    routes r1
+  JOIN
+    routes r2 ON (r1.company = r2.company AND r1.num = r2.num)
+  JOIN
+    stops s1 ON (r1.stop_id = s1.id)
+  JOIN
+    stops s2 ON (r2.stop_id = s2.id)
+  WHERE
+    s1.name = 'Craiglockhart'
+    AND s2.name = 'London Road'
   SQL
 end
 
@@ -146,6 +181,16 @@ def haymarket_and_leith
   # Give the company and num of the services that connect stops
   # 115 and 137 ('Haymarket' and 'Leith')
   execute(<<-SQL)
+  SELECT DISTINCT
+    r1.company,
+    r1.num
+  FROM
+    routes r1
+  JOIN
+    routes r2 ON (r1.company = r2.company AND r1.num = r2.num)
+  WHERE
+    r1.stop_id = 115 AND
+    r2.stop_id = 137
   SQL
 end
 
@@ -153,6 +198,21 @@ def craiglockhart_and_tollcross
   # Give the company and num of the services that connect stops
   # 'Craiglockhart' and 'Tollcross'
   execute(<<-SQL)
+  SELECT
+    start_routes.company,
+    start_routes.num
+  FROM
+    routes start_routes
+  JOIN
+    routes end_routes ON start_routes.company = end_routes.company
+      AND start_routes.num = end_routes.num
+  JOIN
+    stops origin_stops ON origin_stops.id = start_routes.stop_id
+  JOIN
+    stops dest_stops ON dest_stops.id = end_routes.stop_id
+  WHERE
+    origin_stops.name = 'Craiglockhart'
+      AND dest_stops.name = 'Tollcross'
   SQL
 end
 
@@ -161,6 +221,21 @@ def start_at_craiglockhart
   # by taking one bus, including 'Craiglockhart' itself. Include the stop name,
   # as well as the company and bus no. of the relevant service.
   execute(<<-SQL)
+  SELECT
+    end_stops.name,
+    end_routes.company,
+    end_routes.num
+  FROM
+    routes start_routes
+  JOIN
+    routes end_routes ON start_routes.num = end_routes.num
+      AND start_routes.company = end_routes.company
+  JOIN
+    stops end_stops ON end_stops.id = end_routes.stop_id
+  JOIN
+    stops orig_stops ON orig_stops.id = start_routes.stop_id
+  WHERE
+    orig_stops.name = 'Craiglockhart'
   SQL
 end
 
@@ -169,5 +244,33 @@ def craiglockhart_to_sighthill
   # Sighthill. Show the bus no. and company for the first bus, the name of the
   # stop for the transfer, and the bus no. and company for the second bus.
   execute(<<-SQL)
+  SELECT DISTINCT
+    start_routes.num,
+    start_routes.company,
+    trans.name,
+    finish.num,
+    finish.company
+  FROM
+    routes start_routes
+  JOIN
+    routes trans_routes ON start_routes.company = trans_routes.company
+      AND start_routes.num = trans_routes.num
+  JOIN
+    stops trans ON trans_routes.stop_id = trans.id
+  JOIN
+    routes from_trans ON trans.id = from_trans.stop_id
+  JOIN
+    routes finish ON from_trans.company = finish.company
+      AND from_trans.num = finish.num
+  JOIN
+    stops orig_stops ON start_routes.stop_id = orig_stops.id
+  JOIN
+    stops dest_stops ON finish.stop_id = dest_stops.id
+  WHERE
+    orig_stops.name = 'Craiglockhart'
+      AND dest_stops.name = 'Sighthill'
   SQL
 end
+
+# Needed to follow solutions closely for the last two, might have taken hours
+# otherwise, definitely need practice... ?
