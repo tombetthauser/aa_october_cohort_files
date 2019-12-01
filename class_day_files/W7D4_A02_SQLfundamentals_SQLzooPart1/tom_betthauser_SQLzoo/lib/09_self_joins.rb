@@ -39,6 +39,20 @@ end
 def lrt_stops
   # Give the id and the name for the stops on the '4' 'LRT' service.
   execute(<<-SQL)
+  SELECT 
+    stops.id, stops.name
+  FROM
+    stops
+  WHERE
+    stops.id IN (
+      SELECT
+        routes.stop_id
+      FROM
+        routes
+      WHERE
+        routes.company = 'LRT'
+        AND routes.num = '4'
+    )
   SQL
 end
 
