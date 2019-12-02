@@ -13,3 +13,7 @@ CREATE TABLE questions (
 
   FOREIGN KEY (user_id) REFERENCES users(id)
 )
+
+CREATE TABLE questions_follows (
+
+)
