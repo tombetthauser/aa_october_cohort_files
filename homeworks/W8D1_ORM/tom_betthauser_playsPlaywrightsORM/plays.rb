@@ -21,7 +21,7 @@ class Play
 
   def self.find_by_title(title)
     request = PlayDBConnection.instance.execute("SELECT * FROM plays WHERE title = '#{title}'")
-    return "No such title found." if request = []
+    return "No such title found." if request == []
     request
   end
 
