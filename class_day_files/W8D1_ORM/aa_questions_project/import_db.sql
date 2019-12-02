@@ -4,3 +4,7 @@ CREATE TABLE users (
   fname varcar(255),
   lname varcar(255)
 )
+
+CREATE TABLE questions (
+  
+)
