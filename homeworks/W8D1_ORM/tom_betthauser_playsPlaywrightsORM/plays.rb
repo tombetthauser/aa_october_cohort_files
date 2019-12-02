@@ -20,7 +20,8 @@ class Play
   end
 
   def self.find_by_title(title)
-    PlayDBConnection.instance.execute("SELECT * FROM plays WHERE title = '#{title}'")
+    request = PlayDBConnection.instance.execute("SELECT * FROM plays WHERE title = '#{title}'")
+    request || "No such title found."
   end
 
   def initialize(options)
