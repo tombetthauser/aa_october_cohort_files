@@ -28,7 +28,8 @@ class Play
       WHERE
         title = ?
     SQL
-    request == [] ? "No such title found." : request
+    return nil if request.empty?
+    Play.new(request.first)
   end
 
   def initialize(options)
