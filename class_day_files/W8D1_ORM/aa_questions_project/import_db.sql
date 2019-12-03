@@ -57,7 +57,10 @@ INSERT INTO
 VALUES
   ('Ned', 'Brown'),
   ('Kush', 'Patel'),
-  ('Earl', 'Green');
+  ('Earl', 'Green'),
+  ('Ralph', 'Black'),
+  ('Andy', 'Horowitz'),
+  ('Tim', 'Goldstien');
 
 INSERT INTO
   questions (title, body, author_id)
@@ -77,7 +80,10 @@ VALUES
 INSERT INTO
   question_follows (users_id, questions_id)
 VALUES
-  (1, 1),
+  (1, 2),
+  (6, 2),
+  (5, 2),
+  (4, 2),
   (2, 1),
   (3, 2),
   (1, 3),
