@@ -1,0 +1,25 @@
+/* h1, h2, h3, nav, ul, li, a, aside, section, p, figure, input, label, option, form, footer, body { */
+* {
+
+
+margin: 0;
+border: 0;
+padding: 0;
+
+font: inherit;
+text-align: inherit;
+text-align: inherit;
+text-decoration: inherit;
+color: inherit;
+
+background: transparent;
+
+}
+
+body {
+  line-height: 1.5;
+}
+
+img {
+    width:100%;
+}
