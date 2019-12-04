@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170710184251) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "courses", force: :cascade do |t|
     t.string "name"
     t.integer "prereq_id"
@@ -25,6 +28,12 @@ ActiveRecord::Schema.define(version: 20170710184251) do
     t.integer "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "next_generation", id: :serial, force: :cascade do |t|
+    t.text "character"
+    t.text "actor"
+    t.integer "rating"
   end
 
   create_table "users", force: :cascade do |t|
